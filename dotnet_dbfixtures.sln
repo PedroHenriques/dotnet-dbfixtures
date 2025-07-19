@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFixtures", "src\DbFixture
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFixtures.Tests", "test\unit\DbFixtures.Tests\DbFixtures.Tests.csproj", "{BB0EFF05-1C8B-4B15-8B1B-9E9CCF2A0D00}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLibs", "src\SharedLibs\SharedLibs.csproj", "{8FF3F815-090F-40B1-B601-B478DA91148A}"
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,5 +46,17 @@ Global
 		{BB0EFF05-1C8B-4B15-8B1B-9E9CCF2A0D00}.Release|x64.Build.0 = Release|Any CPU
 		{BB0EFF05-1C8B-4B15-8B1B-9E9CCF2A0D00}.Release|x86.ActiveCfg = Release|Any CPU
 		{BB0EFF05-1C8B-4B15-8B1B-9E9CCF2A0D00}.Release|x86.Build.0 = Release|Any CPU
+		{8FF3F815-090F-40B1-B601-B478DA91148A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FF3F815-090F-40B1-B601-B478DA91148A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FF3F815-090F-40B1-B601-B478DA91148A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8FF3F815-090F-40B1-B601-B478DA91148A}.Debug|x64.Build.0 = Debug|Any CPU
+		{8FF3F815-090F-40B1-B601-B478DA91148A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8FF3F815-090F-40B1-B601-B478DA91148A}.Debug|x86.Build.0 = Debug|Any CPU
+		{8FF3F815-090F-40B1-B601-B478DA91148A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FF3F815-090F-40B1-B601-B478DA91148A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FF3F815-090F-40B1-B601-B478DA91148A}.Release|x64.ActiveCfg = Release|Any CPU
+		{8FF3F815-090F-40B1-B601-B478DA91148A}.Release|x64.Build.0 = Release|Any CPU
+		{8FF3F815-090F-40B1-B601-B478DA91148A}.Release|x86.ActiveCfg = Release|Any CPU
+		{8FF3F815-090F-40B1-B601-B478DA91148A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
