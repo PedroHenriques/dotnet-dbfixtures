@@ -56,6 +56,32 @@ public class DbFixturesTests : IDisposable
   }
 
   [Fact]
+  public async Task CloseDrivers_IfCallingCloseOnFirstRegisteredDriverThrowsAnException_ItShouldLetItBubbleUp()
+  {
+    var testEx = new Exception("ex msg from unit test.");
+    this._driverOne.Setup(s => s.Close())
+      .ThrowsAsync(testEx);
+
+    var sut = new DbFixtures([this._driverOne.Object, this._driverTwo.Object]);
+
+    var ex = await Assert.ThrowsAsync<Exception>(async () => await sut.CloseDrivers());
+    Assert.Equal(testEx, ex);
+  }
+
+  [Fact]
+  public async Task CloseDrivers_IfCallingCloseOnSecondRegisteredDriverThrowsAnException_ItShouldLetItBubbleUp()
+  {
+    var testEx = new Exception("ex msg from unit test.");
+    this._driverTwo.Setup(s => s.Close())
+      .ThrowsAsync(testEx);
+
+    var sut = new DbFixtures([this._driverOne.Object, this._driverTwo.Object]);
+
+    var ex = await Assert.ThrowsAsync<Exception>(async () => await sut.CloseDrivers());
+    Assert.Equal(testEx, ex);
+  }
+
+  [Fact]
   public async Task InsertFixtures_ItShouldCallTruncateOnTheFirstRegisteredDriverOnce()
   {
     var sut = new DbFixtures([this._driverOne.Object, this._driverTwo.Object]);
@@ -177,6 +203,78 @@ public class DbFixturesTests : IDisposable
     await sut.InsertFixtures(tables, fixtures);
 
     this._driverTwo.Verify(m => m.InsertFixtures("ab", fixtures["ab"]), Times.Once());
+  }
+
+  [Fact]
+  public async Task InsertFixtures_IFCallingTruncateOnTheFirstRegisteredDriverThrowsAnException_ItShouldLetItBubbleUp()
+  {
+    var testEx = new Exception("test ex msg");
+    this._driverOne.Setup(s => s.Truncate(It.IsAny<string[]>()))
+      .ThrowsAsync(testEx);
+
+    var sut = new DbFixtures([this._driverOne.Object, this._driverTwo.Object]);
+
+    string[] tables = ["gh"];
+    Dictionary<string, object[]> fixtures = new Dictionary<string, object[]>
+    {
+      { "gh", [ ] },
+    };
+    var ex = await Assert.ThrowsAsync<Exception>(async () => await sut.InsertFixtures(tables, fixtures));
+    Assert.Equal(testEx, ex);
+  }
+
+  [Fact]
+  public async Task InsertFixtures_IFCallingTruncateOnTheSecondRegisteredDriverThrowsAnException_ItShouldLetItBubbleUp()
+  {
+    var testEx = new Exception("test ex msg");
+    this._driverTwo.Setup(s => s.Truncate(It.IsAny<string[]>()))
+      .ThrowsAsync(testEx);
+
+    var sut = new DbFixtures([this._driverOne.Object, this._driverTwo.Object]);
+
+    string[] tables = ["gh"];
+    Dictionary<string, object[]> fixtures = new Dictionary<string, object[]>
+    {
+      { "gh", [ ] },
+    };
+    var ex = await Assert.ThrowsAsync<Exception>(async () => await sut.InsertFixtures(tables, fixtures));
+    Assert.Equal(testEx, ex);
+  }
+
+  [Fact]
+  public async Task InsertFixtures_IFCallingInsertFixturesOnTheFirstRegisteredDriverThrowsAnException_ItShouldLetItBubbleUp()
+  {
+    var testEx = new Exception("test ex msg");
+    this._driverOne.Setup(s => s.InsertFixtures(It.IsAny<string>(), It.IsAny<object[]>()))
+      .ThrowsAsync(testEx);
+
+    var sut = new DbFixtures([this._driverOne.Object, this._driverTwo.Object]);
+
+    string[] tables = ["gh"];
+    Dictionary<string, object[]> fixtures = new Dictionary<string, object[]>
+    {
+      { "gh", [ ] },
+    };
+    var ex = await Assert.ThrowsAsync<Exception>(async () => await sut.InsertFixtures(tables, fixtures));
+    Assert.Equal(testEx, ex);
+  }
+
+  [Fact]
+  public async Task InsertFixtures_IFCallingInsertFixturesOnTheSecondRegisteredDriverThrowsAnException_ItShouldLetItBubbleUp()
+  {
+    var testEx = new Exception("test ex msg");
+    this._driverTwo.Setup(s => s.InsertFixtures(It.IsAny<string>(), It.IsAny<object[]>()))
+      .ThrowsAsync(testEx);
+
+    var sut = new DbFixtures([this._driverOne.Object, this._driverTwo.Object]);
+
+    string[] tables = ["gh"];
+    Dictionary<string, object[]> fixtures = new Dictionary<string, object[]>
+    {
+      { "gh", [ ] },
+    };
+    var ex = await Assert.ThrowsAsync<Exception>(async () => await sut.InsertFixtures(tables, fixtures));
+    Assert.Equal(testEx, ex);
   }
 }
 
