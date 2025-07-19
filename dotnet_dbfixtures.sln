@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFixtures.Tests", "test\un
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLibs", "src\SharedLibs\SharedLibs.csproj", "{8FF3F815-090F-40B1-B601-B478DA91148A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFixtures.Mongodb", "src\DbFixtures.Mongodb\DbFixtures.Mongodb.csproj", "{44B0FD57-737E-4C95-A27B-1AF0E5FB1640}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFixtures.Mongodb.Tests", "test\unit\DbFixtures.Mongodb.Tests\DbFixtures.Mongodb.Tests.csproj", "{DA5A18FD-5289-49EC-BFA6-4B0F9EEF8966}"
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,5 +62,29 @@ Global
 		{8FF3F815-090F-40B1-B601-B478DA91148A}.Release|x64.Build.0 = Release|Any CPU
 		{8FF3F815-090F-40B1-B601-B478DA91148A}.Release|x86.ActiveCfg = Release|Any CPU
 		{8FF3F815-090F-40B1-B601-B478DA91148A}.Release|x86.Build.0 = Release|Any CPU
+		{44B0FD57-737E-4C95-A27B-1AF0E5FB1640}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44B0FD57-737E-4C95-A27B-1AF0E5FB1640}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44B0FD57-737E-4C95-A27B-1AF0E5FB1640}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{44B0FD57-737E-4C95-A27B-1AF0E5FB1640}.Debug|x64.Build.0 = Debug|Any CPU
+		{44B0FD57-737E-4C95-A27B-1AF0E5FB1640}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{44B0FD57-737E-4C95-A27B-1AF0E5FB1640}.Debug|x86.Build.0 = Debug|Any CPU
+		{44B0FD57-737E-4C95-A27B-1AF0E5FB1640}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44B0FD57-737E-4C95-A27B-1AF0E5FB1640}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44B0FD57-737E-4C95-A27B-1AF0E5FB1640}.Release|x64.ActiveCfg = Release|Any CPU
+		{44B0FD57-737E-4C95-A27B-1AF0E5FB1640}.Release|x64.Build.0 = Release|Any CPU
+		{44B0FD57-737E-4C95-A27B-1AF0E5FB1640}.Release|x86.ActiveCfg = Release|Any CPU
+		{44B0FD57-737E-4C95-A27B-1AF0E5FB1640}.Release|x86.Build.0 = Release|Any CPU
+		{DA5A18FD-5289-49EC-BFA6-4B0F9EEF8966}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA5A18FD-5289-49EC-BFA6-4B0F9EEF8966}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA5A18FD-5289-49EC-BFA6-4B0F9EEF8966}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DA5A18FD-5289-49EC-BFA6-4B0F9EEF8966}.Debug|x64.Build.0 = Debug|Any CPU
+		{DA5A18FD-5289-49EC-BFA6-4B0F9EEF8966}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DA5A18FD-5289-49EC-BFA6-4B0F9EEF8966}.Debug|x86.Build.0 = Debug|Any CPU
+		{DA5A18FD-5289-49EC-BFA6-4B0F9EEF8966}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA5A18FD-5289-49EC-BFA6-4B0F9EEF8966}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA5A18FD-5289-49EC-BFA6-4B0F9EEF8966}.Release|x64.ActiveCfg = Release|Any CPU
+		{DA5A18FD-5289-49EC-BFA6-4B0F9EEF8966}.Release|x64.Build.0 = Release|Any CPU
+		{DA5A18FD-5289-49EC-BFA6-4B0F9EEF8966}.Release|x86.ActiveCfg = Release|Any CPU
+		{DA5A18FD-5289-49EC-BFA6-4B0F9EEF8966}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
