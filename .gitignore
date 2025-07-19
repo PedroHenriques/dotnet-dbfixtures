@@ -1,0 +1,10 @@
+bin/
+obj/
+
+TestResults/
+coverageReport/
+release/
+
+.env
+
+.vscode/
