@@ -27,8 +27,23 @@ public class DbFixtures : IDbFixtures
     await Task.WhenAll(tasks);
   }
 
-  public Task InsertFixtures(string[] tableNames, Dictionary<string, object[]> fixtures)
+  public async Task InsertFixtures(string[] tableNames, Dictionary<string, object[]> fixtures)
   {
-    throw new NotImplementedException();
+    List<Task> tasks = new List<Task>();
+
+    foreach (var driver in this._drivers)
+    {
+      tasks.Add(Task.Run(async () =>
+      {
+        await driver.Truncate(tableNames);
+
+        foreach (var tableName in tableNames)
+        {
+          await driver.InsertFixtures(tableName, fixtures[tableName]);
+        }
+      }));
+    }
+
+    await Task.WhenAll(tasks);
   }
 }
