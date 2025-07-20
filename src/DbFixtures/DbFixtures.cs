@@ -27,7 +27,7 @@ public class DbFixtures : IDbFixtures
     await Task.WhenAll(tasks);
   }
 
-  public async Task InsertFixtures(string[] tableNames, Dictionary<string, object[]> fixtures)
+  public async Task InsertFixtures<T>(string[] tableNames, Dictionary<string, T[]> fixtures)
   {
     List<Task> tasks = new List<Task>();
 

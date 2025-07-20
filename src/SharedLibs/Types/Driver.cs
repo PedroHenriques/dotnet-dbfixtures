@@ -4,7 +4,7 @@ public interface IDriver
 {
   public Task Truncate(string[] tableNames);
 
-  public Task InsertFixtures(string tableName, object[] fixtures);
+  public Task InsertFixtures<T>(string tableName, T[] fixtures);
 
   public Task Close();
 }
