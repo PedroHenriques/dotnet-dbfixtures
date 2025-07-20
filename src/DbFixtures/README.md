@@ -1,5 +1,3 @@
-![ci workflow](https://github.com/PedroHenriques/dotnet-dbfixtures/actions/workflows/pipeline.yml/badge.svg?branch=main)
-
 # Fixtures Manager
 
 An abstraction layer for handling database fixtures for automated testing purposes, providing a standardized interface across different database systems.
