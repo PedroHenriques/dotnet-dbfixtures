@@ -1,7 +1,7 @@
 using Moq;
 using SharedLibs.Types;
 
-namespace DbFixtures.Tests;
+namespace DbFixtures.Tests.Unit;
 
 [Trait("Type", "Unit")]
 public class DbFixturesTests : IDisposable
