@@ -1,12 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <ProjectReference Include="..\SharedLibs\SharedLibs.csproj" />
+    <ProjectReference Include="..\SharedLibs\SharedLibs.csproj"></ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>0.0.0</Version>
+    <Version>1.0.0</Version>
     <PackageId>DbFixtures</PackageId>
   </PropertyGroup>
 </Project>
