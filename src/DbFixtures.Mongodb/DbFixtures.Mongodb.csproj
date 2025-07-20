@@ -1,15 +1,15 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <ProjectReference Include="..\SharedLibs\SharedLibs.csproj" />
+    <ProjectReference Include="..\SharedLibs\SharedLibs.csproj"></ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MongoDB.Driver" Version="3.4.1" />
+    <PackageReference Include="MongoDB.Driver" Version="3.4.1"></PackageReference>
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>0.0.0</Version>
+    <Version>1.0.0</Version>
     <PackageId>DbFixtures.Mongodb</PackageId>
   </PropertyGroup>
 </Project>
