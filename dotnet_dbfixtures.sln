@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFixtures.Mongodb.Integrat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFixtures.Mongodb.E2ETests", "test\e2e\DbFixtures.Mongodb.E2ETests\DbFixtures.Mongodb.E2ETests.csproj", "{21E81439-3915-4F34-95D4-C8A0811CBA4E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFixtures.Kafka", "src\DbFixtures.Kafka\DbFixtures.Kafka.csproj", "{76EEEAB9-5EE9-47BF-92F2-F43F688329B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFixtures.Kafka.Tests", "test\unit\DbFixtures.Kafka.Tests\DbFixtures.Kafka.Tests.csproj", "{D26D074E-09B5-497A-BE64-806517E9E444}"
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -114,5 +118,29 @@ Global
 		{21E81439-3915-4F34-95D4-C8A0811CBA4E}.Release|x64.Build.0 = Release|Any CPU
 		{21E81439-3915-4F34-95D4-C8A0811CBA4E}.Release|x86.ActiveCfg = Release|Any CPU
 		{21E81439-3915-4F34-95D4-C8A0811CBA4E}.Release|x86.Build.0 = Release|Any CPU
+		{76EEEAB9-5EE9-47BF-92F2-F43F688329B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76EEEAB9-5EE9-47BF-92F2-F43F688329B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76EEEAB9-5EE9-47BF-92F2-F43F688329B5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{76EEEAB9-5EE9-47BF-92F2-F43F688329B5}.Debug|x64.Build.0 = Debug|Any CPU
+		{76EEEAB9-5EE9-47BF-92F2-F43F688329B5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{76EEEAB9-5EE9-47BF-92F2-F43F688329B5}.Debug|x86.Build.0 = Debug|Any CPU
+		{76EEEAB9-5EE9-47BF-92F2-F43F688329B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76EEEAB9-5EE9-47BF-92F2-F43F688329B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76EEEAB9-5EE9-47BF-92F2-F43F688329B5}.Release|x64.ActiveCfg = Release|Any CPU
+		{76EEEAB9-5EE9-47BF-92F2-F43F688329B5}.Release|x64.Build.0 = Release|Any CPU
+		{76EEEAB9-5EE9-47BF-92F2-F43F688329B5}.Release|x86.ActiveCfg = Release|Any CPU
+		{76EEEAB9-5EE9-47BF-92F2-F43F688329B5}.Release|x86.Build.0 = Release|Any CPU
+		{D26D074E-09B5-497A-BE64-806517E9E444}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D26D074E-09B5-497A-BE64-806517E9E444}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D26D074E-09B5-497A-BE64-806517E9E444}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D26D074E-09B5-497A-BE64-806517E9E444}.Debug|x64.Build.0 = Debug|Any CPU
+		{D26D074E-09B5-497A-BE64-806517E9E444}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D26D074E-09B5-497A-BE64-806517E9E444}.Debug|x86.Build.0 = Debug|Any CPU
+		{D26D074E-09B5-497A-BE64-806517E9E444}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D26D074E-09B5-497A-BE64-806517E9E444}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D26D074E-09B5-497A-BE64-806517E9E444}.Release|x64.ActiveCfg = Release|Any CPU
+		{D26D074E-09B5-497A-BE64-806517E9E444}.Release|x64.Build.0 = Release|Any CPU
+		{D26D074E-09B5-497A-BE64-806517E9E444}.Release|x86.ActiveCfg = Release|Any CPU
+		{D26D074E-09B5-497A-BE64-806517E9E444}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
