@@ -1,27 +1,55 @@
 services:
-  # api_redis:
-  #   image: redis:7-alpine
-  #   container_name: "api_redis"
-  #   restart: on-failure
-  #   healthcheck:
-  #     test: [ "CMD-SHELL", "redis-cli ping | grep PONG" ]
-  #     interval: 1s
-  #     timeout: 3s
-  #     retries: 5
-  #   networks:
-  #     - apiRedis
+  api:
+    image: ${PROJECT_NAME:-myapp}_api:${IMAGE_TAG:-latest}
+    build:
+      context: ../../
+      dockerfile: ./src/Api/Dockerfile
+    container_name: "api"
+    restart: on-failure
+    depends_on:
+      api_db:
+        condition: service_healthy
+      api_redis:
+        condition: service_healthy
+    environment:
+      - DOTNET_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=10000
+      - MONGO_CON_STR=mongodb://${API_DB_ADMIN_USER:-admin}:${API_DB_ADMIN_PW:-pw}@api_db:27017/admin?authMechanism=SCRAM-SHA-256&replicaSet=rs0
+      - REDIS_CON_STR=api_redis:6379
+      - KAFKA_SCHEMA_REGISTRY_URL=http://schema-registry:8081
+      - KAFKA_CON_STR=broker:29092
+    ports:
+      - ${API_PORT:-10000}:10000
+    networks:
+      - api
+      - apiDb
+      - apiRedis
+      - kafka
+      - myapp_shared
 
-  # redis_gui:
-  #   image: redislabs/redisinsight:latest
-  #   container_name: "redis_gui"
-  #   restart: on-failure
-  #   depends_on:
-  #     api_redis:
-  #       condition: service_healthy
-  #   ports:
-  #     - ${REDIS_GUI_PORT:-9001}:5540
-  #   networks:
-  #     - apiRedis
+  api_redis:
+    image: redis:7-alpine
+    container_name: "api_redis"
+    restart: on-failure
+    healthcheck:
+      test: [ "CMD-SHELL", "redis-cli ping | grep PONG" ]
+      interval: 1s
+      timeout: 3s
+      retries: 5
+    networks:
+      - apiRedis
+
+  redis_gui:
+    image: redislabs/redisinsight:latest
+    container_name: "redis_gui"
+    restart: on-failure
+    depends_on:
+      api_redis:
+        condition: service_healthy
+    ports:
+      - ${REDIS_GUI_PORT:-9001}:5540
+    networks:
+      - apiRedis
 
   api_db:
     image: mongo:8-noble
@@ -47,10 +75,9 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${API_DB_ADMIN_USER:-admin}
       - MONGO_INITDB_ROOT_PASSWORD=${API_DB_ADMIN_PW:-pw}
-      - MONGO_INITDB_DATABASE=dbFixtures
+      - MONGO_INITDB_DATABASE=RefData
     networks:
       - apiDb
-      - myapp_shared
 
   # Used to start the replica set in the MongoDb instance (will run once and exit)
   db_init:
@@ -121,7 +148,6 @@ services:
       CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
     networks:
       - kafka
-      - myapp_shared
 
   schema-registry:
     image: confluentinc/cp-schema-registry:latest
@@ -155,8 +181,9 @@ services:
       - kafka
 
 networks:
+  api:
   apiDb:
-  # apiRedis:
+  apiRedis:
   kafka:
   myapp_shared:
     external: true
