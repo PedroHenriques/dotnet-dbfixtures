@@ -153,16 +153,27 @@ public class KafkaDriverTests : IDisposable, IAsyncLifetime
   }
 
   [Fact]
-  public async Task InsertFixtures_ItShouldInsertTheRequestedEventsInTheCorrectTopics()
+  public async Task InsertFixtures_ItShouldInsertTheRequestedEventsInTheCorrectTopic()
   {
-    await this._producer.ProduceAsync(
-      new TopicPartition(SAFE_TOPIC_NAME, new Partition(0)),
+    Message<TestKey, TestValue>[] expectedMessages = [
       new Message<TestKey, TestValue>
       {
         Key = new TestKey { Id = "safe key 1" },
         Value = new TestValue { Name = "safe value 1" }
-      }
-    );
+      },
+      new Message<TestKey, TestValue>
+      {
+        Key = new TestKey { Id = "safe key 2" },
+        Value = new TestValue { Name = "safe value 2" }
+      },
+      new Message<TestKey, TestValue>
+      {
+        Key = new TestKey { Id = "safe key 3" },
+        Value = new TestValue { Name = "safe value 3" }
+      },
+    ];
+
+    await this._producer.ProduceAsync(new TopicPartition(SAFE_TOPIC_NAME, new Partition(0)), expectedMessages[0]);
 
     var safeFirstOffsets = this._consumer.QueryWatermarkOffsets(new TopicPartition(SAFE_TOPIC_NAME, new Partition(0)), TimeSpan.FromSeconds(5));
 
@@ -192,50 +203,36 @@ public class KafkaDriverTests : IDisposable, IAsyncLifetime
     Assert.Equal(1, secondOffsets.High - secondOffsets.Low);
 
     await this._sut.InsertFixtures(
-      TOPIC_NAME,
+      SAFE_TOPIC_NAME,
       [
-        new Message<TestKey, TestValue>
-        {
-          Key = new TestKey { Id = "new key" },
-          Value = new TestValue { Name = "new value" }
-        },
-        new Message<TestKey, TestValue>
-        {
-          Key = new TestKey { Id = "another new key" },
-          Value = new TestValue { Name = "another new value" }
-        },
+        expectedMessages[1],
+        expectedMessages[2],
       ]
     );
 
-    this._realConsumer.Subscribe(TOPIC_NAME);
+    safeFirstOffsets = this._consumer.QueryWatermarkOffsets(new TopicPartition(SAFE_TOPIC_NAME, new Partition(0)), TimeSpan.FromSeconds(5));
 
-    var records = new List<ConsumeResult<TestKey, TestValue>>();
-    while (records.Count < 4)
+    Assert.Equal(3, safeFirstOffsets.High - safeFirstOffsets.Low);
+
+    this._realConsumer.Subscribe(SAFE_TOPIC_NAME);
+
+    List<Message<TestKey, TestValue>> records = new List<Message<TestKey, TestValue>> { };
+    while (records.Count < 3)
     {
       var cr = _realConsumer.Consume(TimeSpan.FromSeconds(1));
-      if (cr != null) { records.Add(cr); }
-    }
-
-    foreach (var record in records)
-    {
-      switch (record.Message.Key.Id)
+      if (cr != null)
       {
-        case "key 1":
-          Assert.Equal("value 1", record.Message.Value.Name);
-          break;
-        case null:
-          Assert.Equal("value 3", record.Message.Value.Name);
-          break;
-        case "new key":
-          Assert.Equal("new value", record.Message.Value.Name);
-          break;
-        case "another new key":
-          Assert.Equal("another new value", record.Message.Value.Name);
-          break;
-        default:
-          throw new Exception($"Unexpected message in topic '{TOPIC_NAME}': {JsonConvert.SerializeObject(record.Message)}");
+        var msg = cr.Message;
+        msg.Timestamp = Timestamp.Default;
+        msg.Headers = null;
+        records.Add(msg);
       }
     }
+
+    Assert.Equal(
+      JsonConvert.SerializeObject(expectedMessages),
+      JsonConvert.SerializeObject(records)
+    );
   }
 }
 
