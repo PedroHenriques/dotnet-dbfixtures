@@ -345,6 +345,84 @@ public class KafkaDriverTests : IDisposable
   }
 
   [Fact]
+  public async Task Truncate_IfATopicHasNoEventsInASpecificPartition_ItShouldNotAddThatPartitionWhenCallingDeleteRecordsAsyncOnTheAdminClient()
+  {
+    List<TopicMetadata> topics = new List<TopicMetadata>
+    {
+      new TopicMetadata(
+        "test topic",
+        new List<PartitionMetadata>{
+          new PartitionMetadata(0, 0, [1], [1], null),
+          new PartitionMetadata(1, 0, [1], [1], null),
+        },
+        null
+      ),
+    };
+    var offsets = new List<TopicPartitionOffset>{
+      {
+        new TopicPartitionOffset(
+          new TopicPartition("test topic", new Partition(1)),
+          new Offset(5)
+        )
+      },
+    };
+
+    this._adminMock.Setup(s => s.GetMetadata(It.IsAny<string>(), It.IsAny<TimeSpan>()))
+      .Returns(new Metadata(new List<BrokerMetadata>(), topics, 1, ""));
+
+    this._consumerMock.SetupSequence(s => s.QueryWatermarkOffsets(It.IsAny<TopicPartition>(), It.IsAny<TimeSpan>()))
+      .Returns(new WatermarkOffsets(0, 0))
+      .Returns(new WatermarkOffsets(0, 5));
+
+    var sut = new KafkaDriver<dynamic, dynamic>(this._adminMock.Object, this._consumerMock.Object, this._producerMock.Object);
+    await sut.Truncate(["test topic"]);
+
+    this._adminMock.Verify(m => m.DeleteRecordsAsync(offsets, null), Times.Once());
+  }
+
+  [Fact]
+  public async Task Truncate_IfATopicHasNoEventsInAnyOfItsPartitions_ItShouldNotCallDeleteRecordsAsyncOnTheAdminClient()
+  {
+    List<TopicMetadata> topics = new List<TopicMetadata>
+    {
+      new TopicMetadata(
+        "test topic",
+        new List<PartitionMetadata>{
+          new PartitionMetadata(0, 0, [1], [1], null),
+          new PartitionMetadata(1, 0, [1], [1], null),
+        },
+        null
+      ),
+    };
+    var offsets = new List<TopicPartitionOffset>{
+      {
+        new TopicPartitionOffset(
+          new TopicPartition("test topic", new Partition(0)),
+          new Offset(0)
+        )
+      },
+      {
+        new TopicPartitionOffset(
+          new TopicPartition("test topic", new Partition(1)),
+          new Offset(0)
+        )
+      },
+    };
+
+    this._adminMock.Setup(s => s.GetMetadata(It.IsAny<string>(), It.IsAny<TimeSpan>()))
+      .Returns(new Metadata(new List<BrokerMetadata>(), topics, 1, ""));
+
+    this._consumerMock.SetupSequence(s => s.QueryWatermarkOffsets(It.IsAny<TopicPartition>(), It.IsAny<TimeSpan>()))
+      .Returns(new WatermarkOffsets(0, 0))
+      .Returns(new WatermarkOffsets(0, 0));
+
+    var sut = new KafkaDriver<dynamic, dynamic>(this._adminMock.Object, this._consumerMock.Object, this._producerMock.Object);
+    await sut.Truncate(["test topic"]);
+
+    this._adminMock.Verify(m => m.DeleteRecordsAsync(It.IsAny<IEnumerable<TopicPartitionOffset>>(), It.IsAny<DeleteRecordsOptions>()), Times.Never());
+  }
+
+  [Fact]
   public async Task InsertFixtures_ItShouldCallProduceAsyncOnTheProducerInstanceOnceWithTheExpectedArguments()
   {
     var sut = new KafkaDriver<dynamic, dynamic>(this._adminMock.Object, this._consumerMock.Object, this._producerMock.Object);

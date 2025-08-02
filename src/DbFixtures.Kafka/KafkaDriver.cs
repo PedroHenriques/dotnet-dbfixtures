@@ -65,10 +65,18 @@ public class KafkaDriver<K, V> : IDriver
           TimeSpan.FromSeconds(10)
         );
 
-        topicOffsets.Add(new TopicPartitionOffset(
-          new TopicPartition(tableName, partitionInstance),
-          offsets.High
-        ));
+        if (offsets.High > offsets.Low)
+        {
+          topicOffsets.Add(new TopicPartitionOffset(
+            new TopicPartition(tableName, partitionInstance),
+            offsets.High
+          ));
+        }
+      }
+
+      if (topicOffsets.Count == 0)
+      {
+        continue;
       }
 
       await this._adminClient.DeleteRecordsAsync(topicOffsets, null);
