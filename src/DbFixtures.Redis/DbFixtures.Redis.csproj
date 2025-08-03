@@ -4,6 +4,10 @@
     <ProjectReference Include="..\SharedLibs\SharedLibs.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="NRedisStack" Version="1.0.0" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
