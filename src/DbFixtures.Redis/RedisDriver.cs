@@ -63,12 +63,15 @@ public class RedisDriver : IDriver
         return;
 
       case KeyTypes.Stream:
-        var streamFixture = (fixtures as Dictionary<string, string>[])[0];
-        NameValueEntry[] streamValues = streamFixture.Select(
-          pair => new NameValueEntry(pair.Key, pair.Value)
-        ).ToArray();
+        var streamFixture = fixtures as Dictionary<string, string>[];
+        foreach (var fixture in streamFixture)
+        {
+          NameValueEntry[] streamValues = fixture.Select(
+            pair => new NameValueEntry(pair.Key, pair.Value)
+          ).ToArray();
 
-        await this._db.StreamAddAsync(tableName, streamValues);
+          await this._db.StreamAddAsync(tableName, streamValues);
+        }
         return;
 
       case KeyTypes.Hash:
