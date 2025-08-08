@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\DbFixtures.Kafka\DbFixtures.Kafka.csproj" />
+    <ProjectReference Include="..\..\..\src\SharedLibs\SharedLibs.csproj" />
   </ItemGroup>
 
 </Project>

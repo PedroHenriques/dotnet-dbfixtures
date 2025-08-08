@@ -1,6 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <ProjectReference Include="..\SharedLibs\SharedLibs.csproj"></ProjectReference>
+    <ProjectReference Include="..\SharedLibs\SharedLibs.csproj">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>all</IncludeAssets>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Confluent.Kafka" Version="2.11.0"></PackageReference>
@@ -12,4 +15,7 @@
     <Version>1.0.0</Version>
     <PackageId>DbFixtures.Kafka</PackageId>
   </PropertyGroup>
+  <Target Name="CopySharedLibs" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
+    <Copy SourceFiles="..\SharedLibs\bin\$(Configuration)\net8.0\SharedLibs.dll" DestinationFolder="$(OutputPath)" />
+  </Target>
 </Project>
