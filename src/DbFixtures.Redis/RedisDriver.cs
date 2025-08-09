@@ -75,12 +75,15 @@ public class RedisDriver : IDriver
         return;
 
       case KeyTypes.Hash:
-        var hashFixture = (fixtures as Dictionary<string, string>[])[0];
-        HashEntry[] hashValues = hashFixture.Select(
-          pair => new HashEntry(pair.Key, pair.Value)
-        ).ToArray();
+        var hashFixture = fixtures as Dictionary<string, string>[];
+        foreach (var fixture in hashFixture)
+        {
+          HashEntry[] hashValues = fixture.Select(
+            pair => new HashEntry(pair.Key, pair.Value)
+          ).ToArray();
 
-        await this._db.HashSetAsync(new RedisKey(tableName), hashValues);
+          await this._db.HashSetAsync(new RedisKey(tableName), hashValues);
+        }
         return;
     }
   }

@@ -116,6 +116,31 @@ public class RedisDriverTests : IDisposable
   }
 
   [Fact]
+  public async Task InsertFixtures_IfTheProvidedKeyIsSetToAHash_If2FixturesAreProvided_ItShouldCallStreamAddAsyncOnTheDatabaseInstanceOnceWithTheExpectedArgumentsForThe1stFixture()
+  {
+    var sut = new RedisDriver(this._clientMock.Object, this._dbMock.Object, new Dictionary<string, Types.KeyTypes> { { "some hash key", Types.KeyTypes.Hash } });
+    await sut.InsertFixtures<Dictionary<string, string>>("some hash key", [new Dictionary<string, string> { { "hello", "world" }, { "from", "unit test" } }, new Dictionary<string, string> { { "some key", "some value" } }]);
+
+    HashEntry[] expectedValues = [
+      new HashEntry("hello", "world"),
+      new HashEntry("from", "unit test"),
+    ];
+    this._dbMock.Verify(m => m.HashSetAsync(new RedisKey("some hash key"), expectedValues, CommandFlags.None), Times.Once());
+  }
+
+  [Fact]
+  public async Task InsertFixtures_IfTheProvidedKeyIsSetToAHash_If2FixturesAreProvided_ItShouldCallStreamAddAsyncOnTheDatabaseInstanceOnceWithTheExpectedArgumentsForThe2ndFixture()
+  {
+    var sut = new RedisDriver(this._clientMock.Object, this._dbMock.Object, new Dictionary<string, Types.KeyTypes> { { "some hash key", Types.KeyTypes.Hash } });
+    await sut.InsertFixtures<Dictionary<string, string>>("some hash key", [new Dictionary<string, string> { { "hello", "world" }, { "from", "unit test" } }, new Dictionary<string, string> { { "some key", "some value" } }]);
+
+    HashEntry[] expectedValues = [
+      new HashEntry("some key", "some value"),
+    ];
+    this._dbMock.Verify(m => m.HashSetAsync(new RedisKey("some hash key"), expectedValues, CommandFlags.None), Times.Once());
+  }
+
+  [Fact]
   public async Task InsertFixtures_IfTheProvidedKeyIsSetToAHash_IfTheProvidedFixturesIsAnEmptyArray_ItShouldNotCallHashSetAsyncOnTheDatabaseInstance()
   {
     var sut = new RedisDriver(this._clientMock.Object, this._dbMock.Object, new Dictionary<string, Types.KeyTypes> { { "some key", Types.KeyTypes.String } });
