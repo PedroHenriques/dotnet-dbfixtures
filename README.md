@@ -14,6 +14,7 @@ For detailed information about each package look at:
 | Core Package | [doc](/src/DbFixtures/README.md) |
 | Mongodb Driver | [doc](/src/DbFixtures.Mongodb/README.md) |
 | Kafka Driver | [doc](/src/DbFixtures.Kafka/README.md) |
+| Redis Driver | [doc](/src/DbFixtures.Redis/README.md) |
 
 # Developer information
 ## Requisites
