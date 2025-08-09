@@ -39,10 +39,6 @@ public interface IDriver
 }
 ```
 
-### Current official drivers
-
-* [MongoDB](https://github.com/PedroHenriques/dotnet-dbfixtures/blob/main/src/DbFixtures.Mongodb/README.md)
-
 ## Usage
 
 This package exposes the following interface
