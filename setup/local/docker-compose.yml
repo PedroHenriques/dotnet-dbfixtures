@@ -1,27 +1,28 @@
 services:
-  # api_redis:
-  #   image: redis:7-alpine
-  #   container_name: "api_redis"
-  #   restart: on-failure
-  #   healthcheck:
-  #     test: [ "CMD-SHELL", "redis-cli ping | grep PONG" ]
-  #     interval: 1s
-  #     timeout: 3s
-  #     retries: 5
-  #   networks:
-  #     - apiRedis
+  api_redis:
+    image: redis:7-alpine
+    container_name: "api_redis"
+    restart: on-failure
+    healthcheck:
+      test: [ "CMD-SHELL", "redis-cli ping | grep PONG" ]
+      interval: 1s
+      timeout: 3s
+      retries: 5
+    networks:
+      - apiRedis
+      - myapp_shared
 
-  # redis_gui:
-  #   image: redislabs/redisinsight:latest
-  #   container_name: "redis_gui"
-  #   restart: on-failure
-  #   depends_on:
-  #     api_redis:
-  #       condition: service_healthy
-  #   ports:
-  #     - ${REDIS_GUI_PORT:-9001}:5540
-  #   networks:
-  #     - apiRedis
+  redis_gui:
+    image: redislabs/redisinsight:latest
+    container_name: "redis_gui"
+    restart: on-failure
+    depends_on:
+      api_redis:
+        condition: service_healthy
+    ports:
+      - ${REDIS_GUI_PORT:-9001}:5540
+    networks:
+      - apiRedis
 
   api_db:
     image: mongo:8-noble
@@ -156,7 +157,7 @@ services:
 
 networks:
   apiDb:
-  # apiRedis:
+  apiRedis:
   kafka:
   myapp_shared:
     external: true

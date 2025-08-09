@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFixtures.Redis", "src\DbF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFixtures.Redis.Tests", "test\unit\DbFixtures.Redis.Tests\DbFixtures.Redis.Tests.csproj", "{1BBD792F-5A59-4C69-8936-EB9978E23B14}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbFixtures.Redis.IntegrationTests", "test\integration\DbFixtures.Redis.IntegrationTests\DbFixtures.Redis.IntegrationTests.csproj", "{6E4078D2-75FD-4EB4-A498-554B1D80DF5B}"
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -198,5 +200,17 @@ Global
 		{1BBD792F-5A59-4C69-8936-EB9978E23B14}.Release|x64.Build.0 = Release|Any CPU
 		{1BBD792F-5A59-4C69-8936-EB9978E23B14}.Release|x86.ActiveCfg = Release|Any CPU
 		{1BBD792F-5A59-4C69-8936-EB9978E23B14}.Release|x86.Build.0 = Release|Any CPU
+		{6E4078D2-75FD-4EB4-A498-554B1D80DF5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E4078D2-75FD-4EB4-A498-554B1D80DF5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E4078D2-75FD-4EB4-A498-554B1D80DF5B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6E4078D2-75FD-4EB4-A498-554B1D80DF5B}.Debug|x64.Build.0 = Debug|Any CPU
+		{6E4078D2-75FD-4EB4-A498-554B1D80DF5B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6E4078D2-75FD-4EB4-A498-554B1D80DF5B}.Debug|x86.Build.0 = Debug|Any CPU
+		{6E4078D2-75FD-4EB4-A498-554B1D80DF5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E4078D2-75FD-4EB4-A498-554B1D80DF5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E4078D2-75FD-4EB4-A498-554B1D80DF5B}.Release|x64.ActiveCfg = Release|Any CPU
+		{6E4078D2-75FD-4EB4-A498-554B1D80DF5B}.Release|x64.Build.0 = Release|Any CPU
+		{6E4078D2-75FD-4EB4-A498-554B1D80DF5B}.Release|x86.ActiveCfg = Release|Any CPU
+		{6E4078D2-75FD-4EB4-A498-554B1D80DF5B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
