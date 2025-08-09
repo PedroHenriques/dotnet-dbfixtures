@@ -91,12 +91,6 @@ public class RedisDriver : IDriver
   public async Task Truncate(string[] tableNames)
   {
     RedisKey[] keys = Array.ConvertAll(tableNames, name => (RedisKey)name);
-    var numDelKeys = await this._db.KeyDeleteAsync(keys);
-
-    var numReqKeys = tableNames.Length;
-    if (numDelKeys != numReqKeys)
-    {
-      throw new Exception($"Failed to delete all the requested keys. Deleted {numDelKeys} of {numReqKeys} keys.");
-    }
+    await this._db.KeyDeleteAsync(keys);
   }
 }

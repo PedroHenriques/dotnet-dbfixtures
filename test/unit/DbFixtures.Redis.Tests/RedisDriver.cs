@@ -298,16 +298,4 @@ public class RedisDriverTests : IDisposable
     RedisKey[] expectedKeys = ["key1", "key2", "key3"];
     this._dbMock.Verify(m => m.KeyDeleteAsync(expectedKeys, CommandFlags.None), Times.Once());
   }
-
-  [Fact]
-  public async Task Truncate_IfTheNumberOfDeletedKeysIsNotEqualToTheProvidedNumberOfKeys_ItShouldThrowAnExceptionWithExpectedMessage()
-  {
-    this._dbMock.Setup(s => s.KeyDeleteAsync(It.IsAny<RedisKey[]>(), It.IsAny<CommandFlags>()))
-      .Returns(Task.FromResult<long>(1));
-
-    var sut = new RedisDriver(this._clientMock.Object, this._dbMock.Object, new Dictionary<string, Types.KeyTypes> { });
-
-    Exception ex = await Assert.ThrowsAsync<Exception>(async () => await sut.Truncate(["key71", "key24"]));
-    Assert.Equal("Failed to delete all the requested keys. Deleted 1 of 2 keys.", ex.Message);
-  }
 }
