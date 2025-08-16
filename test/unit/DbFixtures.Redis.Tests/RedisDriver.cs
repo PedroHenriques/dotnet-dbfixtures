@@ -26,7 +26,7 @@ public class RedisDriverTests : IDisposable
       .Returns(Task.FromResult<long>(0));
     this._dbMock.Setup(s => s.SetAddAsync(It.IsAny<RedisKey>(), It.IsAny<RedisValue[]>(), It.IsAny<CommandFlags>()))
       .Returns(Task.FromResult<long>(0));
-    this._dbMock.Setup(s => s.StreamAddAsync(It.IsAny<RedisKey>(), It.IsAny<NameValueEntry[]>(), It.IsAny<RedisValue?>(), It.IsAny<int?>(), It.IsAny<bool>(), It.IsAny<CommandFlags>()))
+    this._dbMock.Setup(s => s.StreamAddAsync(It.IsAny<RedisKey>(), It.IsAny<NameValueEntry[]>(), It.IsAny<RedisValue?>(), It.IsAny<long?>(), It.IsAny<bool>(), It.IsAny<long?>(), It.IsAny<StreamTrimMode>(), It.IsAny<CommandFlags>()))
       .Returns(Task.FromResult<RedisValue>(""));
   }
 
@@ -116,7 +116,7 @@ public class RedisDriverTests : IDisposable
   }
 
   [Fact]
-  public async Task InsertFixtures_IfTheProvidedKeyIsSetToAHash_If2FixturesAreProvided_ItShouldCallStreamAddAsyncOnTheDatabaseInstanceOnceWithTheExpectedArgumentsForThe1stFixture()
+  public async Task InsertFixtures_IfTheProvidedKeyIsSetToAHash_If2FixturesAreProvided_ItShouldCallHashSetAsyncOnTheDatabaseInstanceOnceWithTheExpectedArgumentsForThe1stFixture()
   {
     var sut = new RedisDriver(this._clientMock.Object, this._dbMock.Object, new Dictionary<string, Types.KeyTypes> { { "some hash key", Types.KeyTypes.Hash } });
     await sut.InsertFixtures<Dictionary<string, string>>("some hash key", [new Dictionary<string, string> { { "hello", "world" }, { "from", "unit test" } }, new Dictionary<string, string> { { "some key", "some value" } }]);
@@ -129,7 +129,7 @@ public class RedisDriverTests : IDisposable
   }
 
   [Fact]
-  public async Task InsertFixtures_IfTheProvidedKeyIsSetToAHash_If2FixturesAreProvided_ItShouldCallStreamAddAsyncOnTheDatabaseInstanceOnceWithTheExpectedArgumentsForThe2ndFixture()
+  public async Task InsertFixtures_IfTheProvidedKeyIsSetToAHash_If2FixturesAreProvided_ItShouldCallHashSetAsyncOnTheDatabaseInstanceOnceWithTheExpectedArgumentsForThe2ndFixture()
   {
     var sut = new RedisDriver(this._clientMock.Object, this._dbMock.Object, new Dictionary<string, Types.KeyTypes> { { "some hash key", Types.KeyTypes.Hash } });
     await sut.InsertFixtures<Dictionary<string, string>>("some hash key", [new Dictionary<string, string> { { "hello", "world" }, { "from", "unit test" } }, new Dictionary<string, string> { { "some key", "some value" } }]);
@@ -215,7 +215,7 @@ public class RedisDriverTests : IDisposable
     var sut = new RedisDriver(this._clientMock.Object, this._dbMock.Object, new Dictionary<string, Types.KeyTypes> { { "some stream key", Types.KeyTypes.Stream } });
     await sut.InsertFixtures<Dictionary<string, string>>("some stream key", [new Dictionary<string, string> { }, new Dictionary<string, string> { }]);
 
-    this._dbMock.Verify(m => m.StreamAddAsync(It.IsAny<RedisKey>(), It.IsAny<NameValueEntry[]>(), It.IsAny<RedisValue?>(), It.IsAny<int?>(), It.IsAny<bool>(), It.IsAny<CommandFlags>()), Times.Exactly(2));
+    this._dbMock.Verify(m => m.StreamAddAsync(It.IsAny<RedisKey>(), It.IsAny<NameValueEntry[]>(), It.IsAny<RedisValue?>(), It.IsAny<long?>(), It.IsAny<bool>(), It.IsAny<long?>(), It.IsAny<StreamTrimMode>(), It.IsAny<CommandFlags>()), Times.Exactly(2));
   }
 
   [Fact]
@@ -228,7 +228,7 @@ public class RedisDriverTests : IDisposable
       new NameValueEntry("hello", "world"),
       new NameValueEntry("from", "unit test"),
     ];
-    this._dbMock.Verify(m => m.StreamAddAsync("some stream key", expectedValues, null, null, false, CommandFlags.None), Times.Once());
+    this._dbMock.Verify(m => m.StreamAddAsync("some stream key", expectedValues, null, null, false, null, StreamTrimMode.KeepReferences, CommandFlags.None), Times.Once());
   }
 
   [Fact]
@@ -241,7 +241,7 @@ public class RedisDriverTests : IDisposable
       new NameValueEntry("hello", "world"),
       new NameValueEntry("from", "unit test"),
     ];
-    this._dbMock.Verify(m => m.StreamAddAsync("some stream key", expectedValues, null, null, false, CommandFlags.None), Times.Once());
+    this._dbMock.Verify(m => m.StreamAddAsync("some stream key", expectedValues, null, null, false, null, StreamTrimMode.KeepReferences, CommandFlags.None), Times.Once());
   }
 
   [Fact]
@@ -253,7 +253,7 @@ public class RedisDriverTests : IDisposable
     NameValueEntry[] expectedValues = [
       new NameValueEntry("some key", "some value"),
     ];
-    this._dbMock.Verify(m => m.StreamAddAsync("some stream key", expectedValues, null, null, false, CommandFlags.None), Times.Once());
+    this._dbMock.Verify(m => m.StreamAddAsync("some stream key", expectedValues, null, null, false, null, StreamTrimMode.KeepReferences, CommandFlags.None), Times.Once());
   }
 
   [Fact]
@@ -262,7 +262,7 @@ public class RedisDriverTests : IDisposable
     var sut = new RedisDriver(this._clientMock.Object, this._dbMock.Object, new Dictionary<string, Types.KeyTypes> { { "some stream key", Types.KeyTypes.Stream } });
     await sut.InsertFixtures<Dictionary<string, string>>("some stream key", []);
 
-    this._dbMock.Verify(m => m.StreamAddAsync(It.IsAny<RedisKey>(), It.IsAny<NameValueEntry[]>(), It.IsAny<RedisValue?>(), It.IsAny<int?>(), It.IsAny<bool>(), It.IsAny<CommandFlags>()), Times.Never());
+    this._dbMock.Verify(m => m.StreamAddAsync(It.IsAny<RedisKey>(), It.IsAny<NameValueEntry[]>(), It.IsAny<RedisValue?>(), It.IsAny<long?>(), It.IsAny<bool>(), It.IsAny<long?>(), It.IsAny<StreamTrimMode>(), It.IsAny<CommandFlags>()), Times.Never());
   }
 
   [Fact]
