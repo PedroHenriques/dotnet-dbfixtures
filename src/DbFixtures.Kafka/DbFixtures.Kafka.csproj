@@ -2,14 +2,14 @@
   <ItemGroup>
     <ProjectReference Include="..\SharedLibs\SharedLibs.csproj"></ProjectReference>
   </ItemGroup>
-  <ItemGroup Condition="&#39;$(UseLocalSharedlibs)&#39; == &#39;true&#39;">
+  <ItemGroup Condition="'$(UseLocalSharedlibs)' == 'true'">
     <ProjectReference Include="..\SharedLibs\SharedLibs.csproj"></ProjectReference>
   </ItemGroup>
-  <ItemGroup Condition="&#39;$(UseLocalSharedlibs)&#39; != &#39;true&#39;">
+  <ItemGroup Condition="'$(UseLocalSharedlibs)' != 'true'">
     <PackageReference Include="DbFixtures.SharedLibs" Version="1.0.0"></PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Confluent.Kafka" Version="2.11.0"></PackageReference>
+    <PackageReference Include="Confluent.Kafka" Version="2.11.1"></PackageReference>
   </ItemGroup><!-- 👇 Default to using NuGet package -->
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
