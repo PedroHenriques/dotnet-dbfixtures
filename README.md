@@ -1,20 +1,30 @@
-# .Net DB Fixtures
-An abstraction layer for handling database fixtures for automated testing purposes, providing a standardized interface across different database systems.
+# Your application name
+Your application brief description.
 
 ## Main functionalities
-- Test runner agnostic
-- No dependencies
-- Standardized interface across multiple database systems
-- Easily set your database for each test's needs
+- Store data in the schema you want
+- API to create, update and delete entities and their data
+- Register entities (Ex: countries, holidays, stores, etc.)
+- Manage the data of each registered entity
+- Register notifications for an entity
+  - Every change made to a data point of an entity can trigger notifications to 1 or many destinations
+  - Use this to notify other applications that need to know when data changes
+  - Supported destinations:
+    - Kafka topic
+    - HTTP(S) webhook
+
+# Application Architecture
+![alt text](documentation/app_arch.png)
 
 # Technical information
-For detailed information about each package look at:
-| Package | Documentation |
-| ----------- | ----------- |
-| Core Package | [doc](/src/DbFixtures/README.md) |
-| Mongodb Driver | [doc](/src/DbFixtures.Mongodb/README.md) |
-| Kafka Driver | [doc](/src/DbFixtures.Kafka/README.md) |
-| Redis Driver | [doc](/src/DbFixtures.Redis/README.md) |
+## Stack
+This application uses the following technologies:
+- C# .Net
+- MongoDb
+- Redis
+
+The application also interacts with the following technologies:
+- Kafka
 
 # Developer information
 ## Requisites
@@ -49,8 +59,14 @@ The available services are declared in the local environment Docker compose proj
 This will run a Docker compose project and start several networked Docker containers will all the services and necessary tools to use the application.
 
 The following services will be running in the containers:
-- 1 MongoDb instance
+- List your services here
+- Confluent community edition Kafka Broker
+- Confluent Schema Registry
 - A GUI for MongoDb
+- A GUI for Redis
+- A GUI for Kafka
+
+There will also be a stopped container named `db_init` which sets up the MongoDb replica set and exits.
 
 2. **[OPTIONAL]** From the root of the project run the command
 ```sh
@@ -90,8 +106,16 @@ Add the following databases:<br>
 `redis://default@api_redis:6379`<br>
 
 `Kafka GUI`: [http://localhost:9002](http://localhost:9002)<br>
+**NOTES:**<br>
+Add a topic with the name `myTestTopic` with, at least, 1 partition.<br>
+Add a schema with the subject `myTestTopic-value`, the content of the file `setup/local/kafka_schema_json.json` and the type `JSON`.
 
 `Kibana`: [http://localhost:9003](http://localhost:9003)
+
+`API`: [http://localhost:10000](http://localhost:10000)<br>
+Use the Postman collection at `setup/local/XPTO.postman_collection` to interact with the application.
+
+`API Swagger UI`: [http://localhost:10000/swagger](http://localhost:10000/swagger)
 
 ### Stop the local environment
 From the root of the project run the command
@@ -158,7 +182,7 @@ Where:
 If the update flag is not provided, the script will print the report with all the dependencies that are outdated, but will not update any of them.
 
 ## CI/CD lifecycle
-This project uses the reusable pipeline templates for .Net package build artifacts located at `https://github.com/PedroHenriques/ci_cd_workflow_templates` and follows the work flow below.
+This project uses the reusable pipeline templates for Docker build artifacts located at `https://github.com/PedroHenriques/ci_cd_workflow_templates` and follows the work flow below.
 ![alt text](documentation/ci_cd_tbd_workflow.drawio.png)
 
 The CI/CD pipeline has the following triggers:
@@ -168,4 +192,7 @@ The CI/CD pipeline has the following triggers:
   - CI workflow's static code analysis and automated tests
 - `closed` with a merge to the `main` branch will trigger:
   - CI workflow's static code analysis and automated tests
-  - CI workflow's build of the package and push to the remote package registry
+  - CI workflow's build of the Docker images and push to the remote container registry
+  - CD workflow's build of the manifest files for the `dev` environment and open a PR on the IDP's dev repo
+  - CD workflow's build of the manifest files for the `qua` environment and open a PR on the IDP's qua repo
+  - CD workflow's build of the manifest files for the `prd` environment and open a PR on the IDP's prd repo
