@@ -1,5 +1,5 @@
 ﻿using DbFixtures.Redis.Types;
-using SharedLibs.Types;
+using DbFixtures.SharedLibs.Types;
 using StackExchange.Redis;
 
 namespace DbFixtures.Redis;

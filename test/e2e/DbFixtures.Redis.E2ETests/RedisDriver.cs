@@ -1,5 +1,5 @@
+using DbFixtures.SharedLibs.Types;
 using Newtonsoft.Json;
-using SharedLibs.Types;
 using StackExchange.Redis;
 
 namespace DbFixtures.Redis.Tests.E2E;

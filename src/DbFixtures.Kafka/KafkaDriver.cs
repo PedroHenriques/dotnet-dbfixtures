@@ -1,5 +1,5 @@
 ﻿using Confluent.Kafka;
-using SharedLibs.Types;
+using DbFixtures.SharedLibs.Types;
 
 namespace DbFixtures.Kafka;
 

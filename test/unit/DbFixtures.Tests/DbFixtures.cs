@@ -1,5 +1,5 @@
+using DbFixtures.SharedLibs.Types;
 using Moq;
-using SharedLibs.Types;
 
 namespace DbFixtures.Tests.Unit;
 

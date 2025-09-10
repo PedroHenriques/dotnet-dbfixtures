@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.0.3] - 2025-09-10
+
+## Change
+
+- **Dependencies**: Bumped version of DbFixtures.SharedLibs from `1.0.0` to `1.0.1`.
+
 ## [1.0.2] - 2025-08-08
 
 ### Fixed
