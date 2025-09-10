@@ -1,4 +1,4 @@
-namespace SharedLibs.Types;
+namespace DbFixtures.SharedLibs.Types;
 
 public interface IDriver
 {
