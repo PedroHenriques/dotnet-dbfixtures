@@ -1,5 +1,5 @@
+using DbFixtures.SharedLibs.Types;
 using MongoDB.Driver;
-using SharedLibs.Types;
 
 namespace DbFixtures.Mongodb;
 

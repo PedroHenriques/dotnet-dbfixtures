@@ -2,8 +2,8 @@ using System.Text;
 using System.Text.Json.Serialization;
 using Confluent.Kafka;
 using Confluent.Kafka.Admin;
+using DbFixtures.SharedLibs.Types;
 using Newtonsoft.Json;
-using SharedLibs.Types;
 
 namespace DbFixtures.Kafka.Tests.E2E;
 

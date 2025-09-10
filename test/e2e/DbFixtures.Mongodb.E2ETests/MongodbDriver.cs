@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
+using DbFixtures.SharedLibs.Types;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
-using SharedLibs.Types;
 
 namespace DbFixtures.Mongodb.Tests.E2E;
 

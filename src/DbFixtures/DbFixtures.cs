@@ -1,5 +1,5 @@
+using DbFixtures.SharedLibs.Types;
 using DbFixtures.Types;
-using SharedLibs.Types;
 
 namespace DbFixtures;
 
