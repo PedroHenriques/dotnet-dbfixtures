@@ -1,10 +1,42 @@
 services:
+  api:
+    image: ${PROJECT_NAME:-myapp}_api:${IMAGE_TAG:-latest}
+    build:
+      context: ../../
+      dockerfile: ./src/Api/Dockerfile
+    container_name: "api"
+    restart: on-failure
+    depends_on:
+      api_db:
+        condition: service_healthy
+      api_redis:
+        condition: service_healthy
+    environment:
+      - DOTNET_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=10000
+      - MONGO_CON_STR=mongodb://${API_DB_ADMIN_USER:-admin}:${API_DB_ADMIN_PW:-pw}@api_db:27017/admin?authMechanism=SCRAM-SHA-256&replicaSet=rs0
+      - REDIS_CON_STR=api_redis:6379
+      - KAFKA_SCHEMA_REGISTRY_URL=http://schema-registry:8081
+      - KAFKA_CON_STR=broker:29092
+    ports:
+      - ${API_PORT:-10000}:10000
+    networks:
+      - api
+      - apiDb
+      - apiRedis
+      - kafka
+      - myapp_shared
+
   api_redis:
     image: redis:7-alpine
     container_name: "api_redis"
     restart: on-failure
+    command:
+      - /bin/sh
+      - -c
+      - redis-server --requirepass 'password'
     healthcheck:
-      test: [ "CMD-SHELL", "redis-cli ping | grep PONG" ]
+      test: [ "CMD-SHELL", "redis-cli -a 'password' ping | grep PONG" ]
       interval: 1s
       timeout: 3s
       retries: 5
@@ -15,6 +47,7 @@ services:
   redis_gui:
     image: redislabs/redisinsight:latest
     container_name: "redis_gui"
+    profiles: ["only_if_not_cicd"]
     restart: on-failure
     depends_on:
       api_redis:
@@ -48,7 +81,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${API_DB_ADMIN_USER:-admin}
       - MONGO_INITDB_ROOT_PASSWORD=${API_DB_ADMIN_PW:-pw}
-      - MONGO_INITDB_DATABASE=dbFixtures
+      - MONGO_INITDB_DATABASE=RefData
     networks:
       - apiDb
       - myapp_shared
@@ -74,6 +107,7 @@ services:
   api_db_gui:
     image: mongo-express:latest
     container_name: "api_db_gui"
+    profiles: ["only_if_not_cicd"]
     environment:
       - ME_CONFIG_MONGODB_SERVER=api_db
       - ME_CONFIG_MONGODB_PORT=27017
@@ -99,10 +133,11 @@ services:
       - "9092:9092"
       - "9101:9101"
     healthcheck:
-      test: ["CMD-SHELL", "kafka-broker-api-versions --bootstrap-server broker:29092 >/dev/null 2>&1"]
-      interval: 5s
-      timeout: 3s
-      retries: 10
+      test: ["CMD-SHELL", "cub kafka-ready -b localhost:29092 1 12 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
     environment:
       KAFKA_NODE_ID: 1
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
@@ -128,24 +163,35 @@ services:
     image: confluentinc/cp-schema-registry:latest
     container_name: schema-registry
     depends_on:
-      - broker
+      broker:
+        condition: service_healthy
     ports:
       - "8081:8081"
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'broker:29092'
       SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8081/subjects > /dev/null || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
     networks:
       - kafka
+      - myapp_shared
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
     container_name: kafka-ui
+    profiles: ["only_if_not_cicd"]
     ports:
       - ${KAFKA_GUI_PORT:-9002}:8080
     depends_on:
-      - broker
-      - schema-registry
+      broker:
+        condition: service_healthy
+      schema-registry:
+        condition: service_healthy
     environment:
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: broker:29092
@@ -156,6 +202,7 @@ services:
       - kafka
 
 networks:
+  api:
   apiDb:
   apiRedis:
   kafka:
