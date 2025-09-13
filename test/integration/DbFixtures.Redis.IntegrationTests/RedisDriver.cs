@@ -17,6 +17,7 @@ public class RedisDriverTests : IDisposable
       new ConfigurationOptions
       {
         EndPoints = { "api_redis:6379" },
+        Password = "password",
         AbortOnConnectFail = false,
       }
     );
