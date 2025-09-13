@@ -2,14 +2,14 @@
   <ItemGroup>
     <ProjectReference Include="..\SharedLibs\SharedLibs.csproj"></ProjectReference>
   </ItemGroup>
-  <ItemGroup Condition="&#39;$(UseLocalSharedlibs)&#39; == &#39;true&#39;">
+  <ItemGroup Condition="'$(UseLocalSharedlibs)' == 'true'">
     <ProjectReference Include="..\SharedLibs\SharedLibs.csproj"></ProjectReference>
   </ItemGroup>
-  <ItemGroup Condition="&#39;$(UseLocalSharedlibs)&#39; != &#39;true&#39;">
+  <ItemGroup Condition="'$(UseLocalSharedlibs)' != 'true'">
     <PackageReference Include="DbFixtures.SharedLibs" Version="1.0.1"></PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MongoDB.Driver" Version="3.4.3"></PackageReference>
+    <PackageReference Include="MongoDB.Driver" Version="3.5.0"></PackageReference>
   </ItemGroup><!-- 👇 Default to using NuGet package -->
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>

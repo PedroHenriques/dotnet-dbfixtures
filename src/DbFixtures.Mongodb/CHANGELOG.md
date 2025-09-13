@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.0.4] - 2025-09-13
+
+## Change
+
+- **Dependencies**: Bumped version of MongoDB.Driver from `3.4.3` to `3.5.0`.
+
 ## [1.0.3] - 2025-09-10
 
 ## Change
