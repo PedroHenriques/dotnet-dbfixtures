@@ -4,17 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.0.3] - 2025-09-18
+
+## Change
+
+- **Dependencies**: Bumped version of `NRedisStack` from `1.1.0` to `1.1.1`.
+
 ## [1.0.2] - 2025-09-10
 
 ## Change
 
-- **Dependencies**: Bumped version of DbFixtures.SharedLibs from `1.0.0` to `1.0.1`.
+- **Dependencies**: Bumped version of `DbFixtures.SharedLibs` from `1.0.0` to `1.0.1`.
 
 ## [1.0.1] - 2025-08-16
 
 ## Change
 
-- **Dependencies**: Bumped version of NRedisStack from `1.0.0` to `1.1.0`.
+- **Dependencies**: Bumped version of `NRedisStack` from `1.0.0` to `1.1.0`.
 
 ## [1.0.0] - 2025-08-09
 
