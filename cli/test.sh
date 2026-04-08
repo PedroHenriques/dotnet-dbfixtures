@@ -51,7 +51,7 @@ if [ $RUN_LOCAL_ENV -eq 1 ]; then
   if [ -f ./setup/local/.env.test ]; then
     echo "Loading overrides from ./setup/local/.env.test";
     set -a;
-     . ./setup/local/.env.test;
+    . ./setup/local/.env.test;
     set +a;
   fi
 
