@@ -16,4 +16,5 @@ jobs:
       major_version_label_name: 'major'
       minor_version_label_name: 'minor'
       patch_version_label_name: 'patch'
+      skip_heavy_tests: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' }}
     secrets: inherit
