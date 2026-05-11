@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.0.6] - 2026-05-11
+
+## Change
+
+- **Dependencies**: Bumped version of `NRedisStack` from `1.3.0` to `1.4.0`.
+
 ## [1.0.5] - 2026-03-18
 
 ## Change
