@@ -18,7 +18,7 @@ public class RedisDriverTests : IDisposable
 
     this._dbMock.Setup(s => s.KeyDeleteAsync(It.IsAny<RedisKey[]>(), It.IsAny<CommandFlags>()))
       .Returns(Task.FromResult<long>(0));
-    this._dbMock.Setup(s => s.StringSetAsync(It.IsAny<RedisKey>(), It.IsAny<RedisValue>(), It.IsAny<TimeSpan?>(), It.IsAny<bool>(), It.IsAny<When>(), It.IsAny<CommandFlags>()))
+    this._dbMock.Setup(s => s.StringSetAsync(It.IsAny<RedisKey>(), It.IsAny<RedisValue>(), It.IsAny<Expiration>(), It.IsAny<ValueCondition>(), It.IsAny<CommandFlags>()))
       .Returns(Task.FromResult(true));
     this._dbMock.Setup(s => s.HashSetAsync(It.IsAny<RedisKey>(), It.IsAny<HashEntry[]>(), It.IsAny<CommandFlags>()))
       .Returns(Task.CompletedTask);
@@ -51,7 +51,7 @@ public class RedisDriverTests : IDisposable
     var sut = new RedisDriver(this._clientMock.Object, this._dbMock.Object, new Dictionary<string, Types.KeyTypes> { { "str key", Types.KeyTypes.String } });
     await sut.InsertFixtures<string>("str key", [""]);
 
-    this._dbMock.Verify(m => m.StringSetAsync(It.IsAny<RedisKey>(), It.IsAny<RedisValue>(), It.IsAny<TimeSpan?>(), It.IsAny<bool>(), It.IsAny<When>(), It.IsAny<CommandFlags>()), Times.Once());
+    this._dbMock.Verify(m => m.StringSetAsync(It.IsAny<RedisKey>(), It.IsAny<RedisValue>(), It.IsAny<Expiration>(), It.IsAny<ValueCondition>(), It.IsAny<CommandFlags>()), Times.Once());
   }
 
   [Fact]
@@ -60,13 +60,13 @@ public class RedisDriverTests : IDisposable
     var sut = new RedisDriver(this._clientMock.Object, this._dbMock.Object, new Dictionary<string, Types.KeyTypes> { { "some key", Types.KeyTypes.String } });
     await sut.InsertFixtures<string>("some key", ["some value"]);
 
-    this._dbMock.Verify(m => m.StringSetAsync(new RedisKey("some key"), new RedisValue("some value"), null, false, When.Always, CommandFlags.None), Times.Once());
+    this._dbMock.Verify(m => m.StringSetAsync(new RedisKey("some key"), new RedisValue("some value"), (Expiration)default, (ValueCondition)default, CommandFlags.None), Times.Once());
   }
 
   [Fact]
   public async Task InsertFixtures_IfTheProvidedKeyIsSetToAString_IfTheProvidedFixturesIsAnArrayOfOneString_IfCallingStringSetAsyncOnTheDatabaseInstanceReturnFalse_ItShouldThrowAnExceptionWithTheExpectedMessage()
   {
-    this._dbMock.Setup(s => s.StringSetAsync(It.IsAny<RedisKey>(), It.IsAny<RedisValue>(), It.IsAny<TimeSpan?>(), It.IsAny<bool>(), It.IsAny<When>(), It.IsAny<CommandFlags>()))
+    this._dbMock.Setup(s => s.StringSetAsync(It.IsAny<RedisKey>(), It.IsAny<RedisValue>(), It.IsAny<Expiration>(), It.IsAny<ValueCondition>(), It.IsAny<CommandFlags>()))
       .Returns(Task.FromResult(false));
 
     var sut = new RedisDriver(this._clientMock.Object, this._dbMock.Object, new Dictionary<string, Types.KeyTypes> { { "some key", Types.KeyTypes.String } });
@@ -90,7 +90,7 @@ public class RedisDriverTests : IDisposable
     var sut = new RedisDriver(this._clientMock.Object, this._dbMock.Object, new Dictionary<string, Types.KeyTypes> { { "some key", Types.KeyTypes.String } });
     await sut.InsertFixtures<string>("some key", ["some value", "another value"]);
 
-    this._dbMock.Verify(m => m.StringSetAsync(new RedisKey("some key"), new RedisValue("some value"), null, false, When.Always, CommandFlags.None), Times.Once());
+    this._dbMock.Verify(m => m.StringSetAsync(new RedisKey("some key"), new RedisValue("some value"), (Expiration)default, (ValueCondition)default, CommandFlags.None), Times.Once());
   }
 
   [Fact]
