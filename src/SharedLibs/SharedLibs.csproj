@@ -7,5 +7,23 @@
     <Version>1.0.1</Version>
     <PackageId>DbFixtures.SharedLibs</PackageId>
     <IsPackable>true</IsPackable>
+    <Authors>Pedro Henriques</Authors>
+    <Description>Shared types for the DbFixtures package and its drivers.</Description>
+    <PackageTags>dbfixtures;fixtures;testing;database</PackageTags>
+    <RepositoryUrl>https://github.com/PedroHenriques/dotnet-dbfixtures</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/PedroHenriques/dotnet-dbfixtures</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include=".\README.md" Pack="true" PackagePath="\"></None>
+    <None Include="..\..\LICENSE" Pack="true" PackagePath="\"></None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.300" PrivateAssets="all"></PackageReference>
+  </ItemGroup>
 </Project>
