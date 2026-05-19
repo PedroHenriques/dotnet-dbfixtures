@@ -1,6 +1,31 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputType>Library</OutputType>
+    <Version>1.0.6</Version>
+    <PackageId>DbFixtures.Redis</PackageId>
+    <IsPackable>true</IsPackable>
+    <Authors>Pedro Henriques</Authors>
+    <Description>An abstraction layer for handling Redis fixtures for automated testing purposes.</Description>
+    <PackageTags>dbfixtures;fixtures;testing;database;redis</PackageTags>
+    <RepositoryUrl>https://github.com/PedroHenriques/dotnet-dbfixtures</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/PedroHenriques/dotnet-dbfixtures</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include=".\README.md" Pack="true" PackagePath="\"></None>
+    <None Include="..\..\LICENSE" Pack="true" PackagePath="\"></None>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharedLibs\SharedLibs.csproj"></ProjectReference>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.300" PrivateAssets="all"></PackageReference>
   </ItemGroup>
   <ItemGroup Condition="&#39;$(UseLocalSharedlibs)&#39; == &#39;true&#39;">
     <ProjectReference Include="..\SharedLibs\SharedLibs.csproj"></ProjectReference>
@@ -11,13 +36,4 @@
   <ItemGroup>
     <PackageReference Include="NRedisStack" Version="1.4.0"></PackageReference>
   </ItemGroup>
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <OutputType>Library</OutputType>
-    <Version>1.0.6</Version>
-    <PackageId>DbFixtures.Redis</PackageId>
-    <IsPackable>true</IsPackable>
-  </PropertyGroup>
 </Project>

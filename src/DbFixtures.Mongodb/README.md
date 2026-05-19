@@ -43,12 +43,13 @@ public class MongodbDriverTests : IDisposable
 {
   private const string DB_NAME = "testDb";
   private readonly IDbFixtures _dbFixtures;
+  private readonly IMongoClient _client;
 
   public MongodbDriverTests()
   {
-    var client = new MongoClient("mongodb://admin:pw@api_db:27017/admin?authMechanism=SCRAM-SHA-256");
+    this._client = new MongoClient("mongodb://admin:pw@api_db:27017/admin?authMechanism=SCRAM-SHA-256");
     var driver = new MongodbDriver(this._client, DB_NAME);
-    this._dbFixtures = new DbFixtures([this._driver]);
+    this._dbFixtures = new DbFixtures([driver]);
 
     this._client.DropDatabase(DB_NAME);
   }
@@ -61,8 +62,9 @@ public class MongodbDriverTests : IDisposable
   [Fact]
   public async TasK MySutMethod_ItShouldWork()
   {
-    var collOne = this._db.GetCollection<TestModel>("coll");
-    var collTwo = this._db.GetCollection<TestModel>("anotherColl");
+    var db = this._client.GetDatabase(DB_NAME);
+    var collOne = db.GetCollection<TestModel>("coll");
+    var collTwo = db.GetCollection<TestModel>("anotherColl");
 
     TestModel[] expectedDocs = [
       new TestModel{ Id = ObjectId.GenerateNewId().ToString(), Prop1 = "final doc 1" },

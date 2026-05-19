@@ -1,6 +1,31 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputType>Library</OutputType>
+    <Version>1.0.7</Version>
+    <PackageId>DbFixtures.Kafka</PackageId>
+    <IsPackable>true</IsPackable>
+    <Authors>Pedro Henriques</Authors>
+    <Description>An abstraction layer for handling Kafka fixtures for automated testing purposes.</Description>
+    <PackageTags>dbfixtures;fixtures;testing;kafka;confluent</PackageTags>
+    <RepositoryUrl>https://github.com/PedroHenriques/dotnet-dbfixtures</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/PedroHenriques/dotnet-dbfixtures</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include=".\README.md" Pack="true" PackagePath="\"></None>
+    <None Include="..\..\LICENSE" Pack="true" PackagePath="\"></None>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharedLibs\SharedLibs.csproj"></ProjectReference>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.300" PrivateAssets="all"></PackageReference>
   </ItemGroup>
   <ItemGroup Condition="&#39;$(UseLocalSharedlibs)&#39; == &#39;true&#39;">
     <ProjectReference Include="..\SharedLibs\SharedLibs.csproj"></ProjectReference>
@@ -10,14 +35,5 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Confluent.Kafka" Version="2.14.0"></PackageReference>
-  </ItemGroup><!-- 👇 Default to using NuGet package -->
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <OutputType>Library</OutputType>
-    <Version>1.0.7</Version>
-    <PackageId>DbFixtures.Kafka</PackageId>
-    <IsPackable>true</IsPackable>
-  </PropertyGroup>
+  </ItemGroup>
 </Project>
