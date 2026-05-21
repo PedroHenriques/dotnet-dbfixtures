@@ -13,6 +13,7 @@ while [ "$#" -gt 0 ]; do
   case "$1" in
     --docker) USE_DOCKER=1; shift 1;;
     --cicd) RUNNING_IN_PIPELINE=1; USE_DOCKER=1; shift 1;;
+    --target-lang) shift 2;;
 
     -*) echo "unknown option: $1" >&2; exit 1;;
   esac
@@ -41,7 +42,7 @@ if [ $USE_DOCKER -eq 1 ]; then
     INTERACTIVE_FLAGS="-i";
   fi
 
-  docker run --rm ${INTERACTIVE_FLAGS} -v "./:/app/" -w "/app/" mcr.microsoft.com/dotnet/sdk:8.0-noble /bin/sh -c "${CMD}";
+  docker run --rm ${INTERACTIVE_FLAGS} -v "./:/app/" -w "/app/" mcr.microsoft.com/dotnet/sdk:10.0-noble /bin/sh -c "${CMD}";
 else
   eval "${CMD}";
 fi

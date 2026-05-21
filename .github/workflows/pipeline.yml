@@ -17,4 +17,5 @@ jobs:
       minor_version_label_name: 'minor'
       patch_version_label_name: 'patch'
       skip_heavy_tests: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' }}
+      target_frameworks: '["net8.0", "net9.0", "net10.0"]'
     secrets: inherit
