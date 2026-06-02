@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.0.8] - 2026-06-02
+
+## Change
+
+- **Dependencies**: Bumped version of `Confluent.Kafka` from `2.14.0` to `2.14.2`.
+
 ## [1.0.7] - 2026-04-04
 
 ## Change
