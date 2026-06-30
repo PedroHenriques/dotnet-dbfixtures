@@ -25,7 +25,7 @@ if [ $UPDATE -eq 1 ]; then
   fi
 fi
 
-CMD="dotnet tool restore; dotnet outdated ${OPTS} ./*.sln";
+CMD="dotnet tool update --local --all; dotnet tool restore; dotnet outdated ${OPTS} ./*.sln";
 if [ $USE_DOCKER -eq 1 ]; then
   INTERACTIVE_FLAGS="-it";
   if [ $RUNNING_IN_PIPELINE -eq 1 ]; then
