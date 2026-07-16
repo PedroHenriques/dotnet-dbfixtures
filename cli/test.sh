@@ -53,7 +53,7 @@ if [ $RUN_LOCAL_ENV -eq 1 ]; then
   if [ -f ./setup/local/.env.test ]; then
     echo "Loading overrides from ./setup/local/.env.test";
     set -a;
-     . ./setup/local/.env.test;
+    . ./setup/local/.env.test;
     set +a;
   fi
 
@@ -113,7 +113,7 @@ else
   docker network create myapp_shared || true;
 fi
 
-CMD="dotnet test ${PROJ} -f ${DOTNET_FRAMEWORK} ${FILTERS} ${COVERAGE}";
+CMD="dotnet test ${PROJ} -f ${DOTNET_FRAMEWORK} -p:TargetFrameworks=${DOTNET_FRAMEWORK} ${FILTERS} ${COVERAGE}";
 
 if [ $WATCH -eq 1 ]; then
   if [ -z "$PROJ" ]; then
@@ -129,7 +129,8 @@ if [ $USE_DOCKER -eq 1 ]; then
     INTERACTIVE_FLAGS="-i";
   fi
 
-  docker run --rm ${INTERACTIVE_FLAGS} --name myapp_test_runner --network=myapp_shared -v "./:/app/" -w "/app/" mcr.microsoft.com/dotnet/sdk:10.0-noble /bin/sh -lc "${CMD}";
+  DOTNET_VERSION="${DOTNET_FRAMEWORK#net}";
+  docker run --rm ${INTERACTIVE_FLAGS} --name myapp_test_runner --network=myapp_shared -v "./:/app/" -w "/app/" "mcr.microsoft.com/dotnet/sdk:${DOTNET_VERSION}-noble" /bin/sh -lc "${CMD}";
 
   if [ $RUNNING_IN_PIPELINE -eq 0 ]; then
     find src test -type d \( -name bin -o -name obj \) -prune -exec rm -rf {} \;
