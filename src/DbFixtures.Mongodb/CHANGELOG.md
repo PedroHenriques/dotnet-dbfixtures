@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.0.17] - 2026-09-09
+
+## Change
+
+- **Dependencies**:
+  - Bumped version of `Microsoft.SourceLink.GitHub` from `10.0.400` to `10.0.401`.
+  - Bumped version of `DbFixtures.SharedLibs` from `1.0.3` to `1.0.4`.
+
 ## [1.0.16] - 2026-08-28
 
 ## Change
