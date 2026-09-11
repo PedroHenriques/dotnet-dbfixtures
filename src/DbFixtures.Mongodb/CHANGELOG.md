@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.0.18] - 2026-09-11
+
+## Change
+
+- **Dependencies**: Bumped version of `MongoDB.Driver` from `3.11.1` to `3.11.2`.
+
 ## [1.0.17] - 2026-09-09
 
 ## Change
