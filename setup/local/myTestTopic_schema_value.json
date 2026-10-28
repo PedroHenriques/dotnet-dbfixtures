@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "MyValue",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "prop1": {
+      "type": "string"
+    },
+    "prop2": {
+      "type": "string"
+    }
+  }
+}
