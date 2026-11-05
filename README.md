@@ -1,27 +1,34 @@
-# .Net DB Fixtures
-An abstraction layer for handling database fixtures for automated testing purposes, providing a standardized interface across different database systems.
+# Your application name
+Your application brief description.
 
 ## Applications wiki
 
 [Link to applications wiki](https://wiki.com/something)
 
 ## Main functionalities
-- Test runner agnostic
-- No dependencies
-- Standardized interface across multiple database systems
-- Easily set your database for each test's needs
+- Store data in the schema you want
+- API to create, update and delete entities and their data
+- Register entities (Ex: countries, holidays, stores, etc.)
+- Manage the data of each registered entity
+- Register notifications for an entity
+  - Every change made to a data point of an entity can trigger notifications to 1 or many destinations
+  - Use this to notify other applications that need to know when data changes
+  - Supported destinations:
+    - Kafka topic
+    - HTTP(S) webhook
 
 # Application Architecture
 [more information here](/documentation/architecture.md)
 
 # Technical information
-For detailed information about each package look at:
-| Package | Documentation |
-| ----------- | ----------- |
-| Core Package | [doc](/src/DbFixtures/README.md) |
-| Mongodb Driver | [doc](/src/DbFixtures.Mongodb/README.md) |
-| Kafka Driver | [doc](/src/DbFixtures.Kafka/README.md) |
-| Redis Driver | [doc](/src/DbFixtures.Redis/README.md) |
+## Stack
+This application uses the following technologies:
+- C# .Net
+- MongoDb
+- Redis
+
+The application also interacts with the following technologies:
+- Kafka
 
 # Developer information
 ## Requisites
@@ -58,8 +65,7 @@ The available services are declared in the local environment Docker compose proj
 This will run a Docker compose project and start several networked Docker containers will all the services and necessary tools to use the application.
 
 The following services will be running in the containers:
-- 1 MongoDb instance
-- 1 Redis single node instances
+- List your services here
 - Confluent community edition Kafka Broker
 - Confluent Schema Registry
 - A GUI for MongoDb
@@ -103,11 +109,19 @@ Accept the T&C and submit to enter.
 ![alt text](documentation/redis_tec.png)
 
 Add the following databases:<br>
-`redis://default@api_redis:6379`<br>
+`redis://default:password@api_redis:6379`<br>
 
 `Kafka GUI`: [http://localhost:9002](http://localhost:9002)<br>
+**NOTES:**<br>
+Add a topic with the name `myTestTopic` with, at least, 1 partition.
+Register the `myTestTopic-key` and `myTestTopic-value` schemas, using the contents of the files `setup/local/myTestTopic_schema_key.json` and `setup/local/myTestTopic_schema_value.json`, respectively and the type `JSON`.
 
 `Kibana`: [http://localhost:9003](http://localhost:9003)
+
+`API`: [http://localhost:10000](http://localhost:10000)<br>
+Use the Postman collection at `setup/local/XPTO.postman_collection` to interact with the application.
+
+`API Swagger UI`: [http://localhost:10000/swagger](http://localhost:10000/swagger)
 
 ### Stop the local environment
 From the root of the project run the command
