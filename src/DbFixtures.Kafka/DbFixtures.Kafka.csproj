@@ -23,9 +23,6 @@
     <None Include=".\README.md" Pack="true" PackagePath="\"></None>
     <None Include="..\..\LICENSE" Pack="true" PackagePath="\"></None>
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="11.0.100" PrivateAssets="all"></PackageReference>
-  </ItemGroup>
   <ItemGroup Condition="'$(UseLocalSharedlibs)' == 'true'">
     <ProjectReference Include="..\SharedLibs\SharedLibs.csproj"></ProjectReference>
   </ItemGroup>

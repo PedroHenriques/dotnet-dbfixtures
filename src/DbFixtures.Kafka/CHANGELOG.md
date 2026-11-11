@@ -4,9 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.0.17] - 2026-11-11
+
+### Removed
+  - `Microsoft.SourceLink.GitHub` dependency since .Net 8 and onwards has it included.
+
 ## [1.0.16] - 2026-10-27
 
-## Change
+### Change
 
 - **Dependencies**:
   - Bumped version of `Microsoft.SourceLink.GitHub` from `10.0.402` to `10.0.403`.
@@ -14,7 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [1.0.15] - 2026-10-14
 
-## Change
+### Change
 
 - **Dependencies**:
   - Bumped version of `Microsoft.SourceLink.GitHub` from `10.0.401` to `10.0.402`.
@@ -22,21 +27,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [1.0.14] - 2026-10-08
 
-## Change
+### Change
 
 - **Dependencies**:
   - Bumped version of `Confluent.Kafka` from `2.15.1` to `2.16.0`.
 
 ## [1.0.13] - 2026-09-10
 
-## Change
+### Change
 
 - **Dependencies**:
   - Bumped version of `Confluent.Kafka` from `2.15.0` to `2.15.1`.
 
 ## [1.0.12] - 2026-09-09
 
-## Change
+### Change
 
 - **Dependencies**:
   - Bumped version of `Microsoft.SourceLink.GitHub` from `10.0.400` to `10.0.401`.
@@ -44,7 +49,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [1.0.11] - 2026-08-12
 
-## Change
+### Change
 
 - **Dependencies**:
   - Bumped version of `Microsoft.SourceLink.GitHub` from `10.0.301` to `10.0.400`.
@@ -52,49 +57,49 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [1.0.10] - 2026-07-16
 
-## Change
+### Change
 
 - **Dependencies**: Bumped version of `Microsoft.SourceLink.GitHub` from `10.0.300` to `10.0.301`.
 
 ## [1.0.9] - 2026-07-02
 
-## Change
+### Change
 
 - **Dependencies**: Bumped version of `Confluent.Kafka` from `2.14.2` to `2.15.0`.
 
 ## [1.0.8] - 2026-06-02
 
-## Change
+### Change
 
 - **Dependencies**: Bumped version of `Confluent.Kafka` from `2.14.0` to `2.14.2`.
 
 ## [1.0.7] - 2026-04-04
 
-## Change
+### Change
 
 - **Dependencies**: Bumped version of `Confluent.Kafka` from `2.13.2` to `2.14.0`.
 
 ## [1.0.6] - 2026-03-18
 
-## Change
+### Change
 
 - **Dependencies**: Bumped version of `Confluent.Kafka` from `2.13.0` to `2.13.2`.
 
 ## [1.0.5] - 2026-01-07
 
-## Change
+### Change
 
 - **Dependencies**: Bumped version of `Confluent.Kafka` from `2.12.0` to `2.13.0`.
 
 ## [1.0.4] - 2025-10-11
 
-## Change
+### Change
 
 - **Dependencies**: Bumped version of `Confluent.Kafka` from `2.11.1` to `2.12.0`.
 
 ## [1.0.3] - 2025-09-10
 
-## Change
+### Change
 
 - **Dependencies**: Bumped version of `DbFixtures.SharedLibs` from `1.0.0` to `1.0.1`.
 

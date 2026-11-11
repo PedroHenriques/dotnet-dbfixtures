@@ -4,9 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.0.9] - 2026-11-11
+
+### Removed
+  - `Microsoft.SourceLink.GitHub` dependency since .Net 8 and onwards has it included.
+
 ## [1.0.8] - 2026-10-27
 
-## Change
+### Change
 
 - **Dependencies**:
   - Bumped version of `Microsoft.SourceLink.GitHub` from `10.0.402` to `10.0.403`.
@@ -14,7 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [1.0.7] - 2026-10-14
 
-## Change
+### Change
 
 - **Dependencies**:
   - Bumped version of `Microsoft.SourceLink.GitHub` from `10.0.401` to `10.0.402`.
@@ -22,7 +27,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [1.0.6] - 2026-09-09
 
-## Change
+### Change
 
 - **Dependencies**:
   - Bumped version of `Microsoft.SourceLink.GitHub` from `10.0.400` to `10.0.401`.
@@ -30,7 +35,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [1.0.5] - 2026-08-12
 
-## Change
+### Change
 
 - **Dependencies**:
   - Bumped version of `Microsoft.SourceLink.GitHub` from `10.0.301` to `10.0.400`.
@@ -38,13 +43,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [1.0.4] - 2026-07-16
 
-## Change
+### Change
 
 - **Dependencies**: Bumped version of `Microsoft.SourceLink.GitHub` from `10.0.300` to `10.0.301`.
 
 ## [1.0.3] - 2025-09-10
 
-## Change
+### Change
 
 - **Dependencies**: Bumped version of DbFixtures.SharedLibs from `1.0.0` to `1.0.1`.
 
