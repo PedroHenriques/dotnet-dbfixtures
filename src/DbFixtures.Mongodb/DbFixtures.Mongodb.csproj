@@ -4,7 +4,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <OutputType>Library</OutputType>
-    <Version>1.0.23</Version>
+    <Version>1.0.24</Version>
     <PackageId>DbFixtures.Mongodb</PackageId>
     <IsPackable>true</IsPackable>
     <Authors>Pedro Henriques</Authors>
@@ -23,10 +23,10 @@
     <None Include=".\README.md" Pack="true" PackagePath="\"></None>
     <None Include="..\..\LICENSE" Pack="true" PackagePath="\"></None>
   </ItemGroup>
-  <ItemGroup Condition="'$(UseLocalSharedlibs)' == 'true'">
+  <ItemGroup Condition="&#39;$(UseLocalSharedlibs)&#39; == &#39;true&#39;">
     <ProjectReference Include="..\SharedLibs\SharedLibs.csproj"></ProjectReference>
   </ItemGroup>
-  <ItemGroup Condition="'$(UseLocalSharedlibs)' != 'true'">
+  <ItemGroup Condition="&#39;$(UseLocalSharedlibs)&#39; != &#39;true&#39;">
     <PackageReference Include="DbFixtures.SharedLibs" Version="1.0.7"></PackageReference>
   </ItemGroup>
   <ItemGroup>
